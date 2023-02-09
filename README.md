@@ -1,4 +1,4 @@
-# BANCOS-DE-DADOS
+# BANCO-DE-DADOS
 CREATE TABLE JOGADORES(/*comandos para criar uma tabela*/
 
 ID_JOGADOR NUMBER(10,0) NOT NULL,/*comandos para criar um bloco para a tabela determinando que sera um numero, tera até 10 posicoes e sera obrigatorio*/
