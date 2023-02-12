@@ -1,0 +1,45 @@
+SELECT * FROM HR.EMPLOYEES;/*selecionando todos atributos da tabela employees*/
+
+SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, SALARY, MANAGER_ID FROM HR.EMPLOYEES/*selecionando apenas campos descritos*/
+
+WHERE MANAGER_ID IN (101,145,149);/*selecionando no campo manager_id somente os ids selecionados.*/
+
+WHERE MANAGER_ID NOT IN (101,145,149);/*retorna todos os itens da lista manager_id, exceto os selecionados nos parenteses*/
+
+WHERE FIRST_NAME LIKE 'S%';/*procura na coluna todos os FIRST_NAME que comecam com a letra S*/
+
+WHERE FIRST_NAME LIKE '%s%';/*procura na coluna todos os FIRST_NAME que contenham a letra s*/
+
+WHERE FIRST_NAME LIKE '%a';/*procura na coluna todos os FIRST_NAME que terminam com a letra a */
+
+WHERE FIRST_NAME NOT LIKE '%a';/*procura na lista todos os nomes que não terminam com a letra a*/
+
+WHERE FIRST_NAME NOT LIKE '%a%';/*procura na lista todos os nomes que não contenham a letra a*/
+
+WHERE FIRST_NAME NOT LIKE 'a%';/*procura na lista todos os nomes que não comecem com a letra a*/
+
+WHERE SALARY BETWEEN 2500 AND 5000; /*procura na lista todos os SALARY entre 2500 e 5000*/
+
+WHERE SALARY NOT BETWEEN 2500 AND 5000;/*procura na lista todos SALARY que não estejam entre 2500 e 5000*/
+
+/*não é necessario a clausula WHERE esta no select.exemplo caso eu queira o SALARY entre 2500 e 5000,não e necessário selecionar o salary no select,e ainda assim ele exibira apenas os funcionarios com o SALARY determinado no WHERE*/
+
+INSERT INTO JOGADORES (ID_JOGADOR,NOME,POSICAO,NICKNAME)VALUES (1,'JOGADOR 1',2,'LUCAS')/*inserindo valores na tabela jogadores*/
+
+INSERT INTO JOGADORES (ID_JOGADOR,NOME,POSICAO,NICKNAME,SEXO)VALUES (2,'JOGADOR 2',3,'RODRIGO',',MASCULINO')/*inserindo valores na tabela jogadores*/
+
+SELECT*FROM JOGADORES;/*seleciona os dados da tabela jogadores*/
+
+INSERT INTO CONTRATADOS (ID_JOGADOR,DATA_INICIO,DATA_FIM)VALUES(3,TO_DATE ('25-05-2015'),TO_DATE('22/02/2017'));/*inserindo valores na tabela contratados*/
+
+INSERT INTO JOGADORES (ID_JOGADOR,NOME,POSICAO,NICKNAME,SEXO)VALUES(3,'JOGADOR 3',4,'CRISTIAN','MASCULINO')
+
+UPDATE JOGADORES SET NOME = 'CRISTIAN OLIVEIRA',POSICAO = 3 WHERE ID_JOGADOR = 3;/*alterando nome e posição do jogador 1*/
+
+UPDATE JOGADORES SET SEXO = 'MASCULINO'WHERE ID_JOGADOR = 2;/*alterando apenas a coluna sexo do jogador 1 que não foi aplicada na inserção*/
+
+DELETE FROM CONTRATADOS WHERE ID_JOGADOR = 3;/*exluindo jogador 3 da tabela;*/
+
+UPDATE FROM CONTRATADOS;/*atualiza todos as colunas da tabela com a mesma informação*/
+
+DELETE FROM CONTRATADOS;/*deleta todas as informações da tabela*/
