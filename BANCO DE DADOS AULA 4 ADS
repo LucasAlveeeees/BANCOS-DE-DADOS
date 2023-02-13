@@ -1,0 +1,13 @@
+SELECT DEPARTMENT_ID,AVG (SALARY),MAX(SALARY),MIN(SALARY)FROM HR.EMPLOYEES/*tira a media salarial de todos os colaboradores,e verificando maior e menor salario de cada department_id*/
+
+WHERE DEPARTMENT_ID IN (10,20,30)/*tirando menor,maior e media salarial dos funcionarios especificados no where*/
+
+GROUP BY DEPARTMENT_ID /*tira a media salarial de um grupo especifico*/
+
+HAVING AVG(SALARY)<= 5000;/*tirando media salarial apenas dos funcionarios que tem salario <=5000 */
+
+HAVING MIN(SALARY)<= 5000;/*tirando menor salario apenas dos funcionarios que tem salario <=5000 */
+
+HAVING MAX(SALARY)<= 5000;/*tirando maior salario apenas dos funcionarios que tem salario <=5000 */
+
+ORDER BY DEPARTMENT_ID;/*ordenar de forma crescente por department_ID*/
