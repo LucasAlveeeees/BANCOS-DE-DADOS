@@ -1,0 +1,8 @@
+SELECT DEPARTMENT_ID FROM HR.DEPARTMENTS WHERE DEPARTMENT_NAME IN ('Marketing','Administration')/*selecionando apenas funcionarios marketing e administration,e mostrando na tela o DEPARTMENT_ID deles,esta é uma subquery,subquey serviu como um filtro para mostrar os dados apenas de Marketing e Administration*/
+);
+
+SELECT FIRST_NAME, JOB_ID,DECODE(JOB_ID,'IT_PROG','PROGRAMADOR','FI_ACCOUNT','CONTADOR','VERIFICAR') CARGO FROM HR.EMPLOYEES;/*selecionando FIRST_NAME E JOB_ID,e usando estrutura condicional DECODE,caso encontre em job_id,'IT_PROG',escrevera'PROGRAMADOR','FI_ACCOUNT',escrevera'CONTADOR',os que não forem desse tipo escrevera VERIFICAR,essas informações ficaram em um novo campo criado com o nome CARGO*/
+
+SELECT FIRST_NAME, JOB_ID, SALARY, CASE WHEN SALARY < 5000 THEN 'AUMENTO' WHEN SALARY > 10000 THEN 'VERIFICAR' ELSE 'NAO AUMENTAR' END VERIFICAR_AUMENTO FROM HR.EMPLOYEES;/*criando estrutura condicional para verificar salarios dos prestadores,e criando uma coluna com o nome verificar_aumento
+
+SELECT FIRST_NAME, JOB_ID, SALARY, CASE WHEN SALARY < 5000 THEN SALARY * 1.05 WHEN SALARY > 10000 THEN SALARY * 1.1 ELSE SALARY END VERIFICAR_AUMENTO FROM HR.EMPLOYEES;/*criando estrutura condicional para verificar salarios dos prestadores,e criando uma coluna com o nome verificar_aumento,e adicionando aumento de salario
