@@ -1,0 +1,32 @@
+SET SERVEROUTPUT ON;/*exemplo de cursor de saida de mensagem, serve para imprimir na tela as informações passadas no DBMS_OUTPUT.PUT_LINE()*/
+
+DECLARE /*bloco de declraração de variaveis,seria o VAR em linguagens de programação*/
+
+    CURSOR CURSOR_EMPREGADOS IS/*criando cursor para execução de codigos*/
+
+        SELECT EMPLOYEE_ID, LAST_NAME FROM HR.EMPLOYEES/*comando que o cursor ira executar*/
+
+        WHERE DEPARTMENT_ID = 30;/*determinando filtro para executar apenas funcionarios com ID = 30*/
+
+    VALOR_ID HR.EMPLOYEES.EMPLOYEE_ID%TYPE;/*criação de variavel, pegando tipo do employee_id e aplicando na variavel VALOR_ID */
+
+    VALOR_NOME HR.EMPLOYEES.LAST_NAME%TYPE; /*verificando tipo da coluna last name e aplicando o mesmo tipo para a variavel valor_nome*/
+
+BEGIN/*significa o inicio programa*/
+    OPEN CURSOR_EMPREGADOS;/*abrindo o cursor*/
+
+        LOOP/*abrindo loop, loop seria como o REPETE, enquanto estiver executando algo, vai continuar no loop*/
+            
+            FETCH CURSOR_EMPREGADOS INTO VALOR_ID, VALOR_NOME;/*buscar no cursor_empregados e aplicar nas variaveis VALOR_ID,VALOR_NOME, VALOR_ID pegara informações de employee_id e valor_nome pegara informações de LAST_NAME*/
+            EXIT WHEN CURSOR_EMPREGADOS%NOTFOUND;/*quando não estiver mais informações para retornar esse comando finaliza o loop*/
+            DBMS_OUTPUT.PUT_LINE(VALOR_ID || ' - ' || VALOR_NOME );/*sera executado apos o EXIT e imprimi na tela as informações obtidas pelo loop*/
+            
+            
+
+            
+        END LOOP;/*fechamento do loop*/
+
+
+
+    CLOSE CURSOR_EMPREGADOS;/*fechando o cursor*/
+END;
