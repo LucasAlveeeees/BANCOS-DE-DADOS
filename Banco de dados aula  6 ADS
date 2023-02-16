@@ -1,0 +1,62 @@
+CREATE OR REPLACE PROCEDURE ADD_NOVO_JOGADOR/*criando procedimento*/
+(JOGADOR_ID_IN IN NUMBER,
+JOGADOR_NAME_IN IN VARCHAR2,
+JOGADOR_POS_IN IN NUMBER,
+JOGADOR_APELIDO_IN IN VARCHAR,
+JOGADOR_SEXO_IN IN VARCHAR2)
+IS
+BEGIN /*inicio do programa*/
+
+    INSERT INTO JOGADORES /*inserindo o procedimento a tabela jogadores*/
+        (ID_JOGADOR, NOME, POSICAO, NICKNAME,SEXO)
+    VALUES
+        (JOGADOR_ID_IN,JOGADOR_NAME_IN,JOGADOR_POS_IN,JOGADOR_APELIDO_IN,JOGADOR_SEXO_IN);
+EXCEPTION /*criando exceção, caso aconteca algum erro na inserção*/
+    WHEN DUP_VAL_ON_INDEX THEN /*caso ocorra alguma duplicação de jogadores*/
+        RAISE_APPLICATION_ERROR(-20001,'CODIGO DO JOGADOR DUPLICADO!');/*caso ocorra duplicação de ID apresentara essa mensagem*/
+    WHEN OTHERS THEN /*caso ocorra outro erro que não seja duplicação*/
+        RAISE_APPLICATION_ERROR(-20002,'ALGUM ERRO ACONTECEU NA INSERÇÃO DO JOGADOR');/*caso ocorra outro erro que não seja ID duplicado, apresentara essa mensagem*/
+END;
+
+EXEC ADD_NOVO_JOGADOR(2,'RODRIGO ALVES E SILVA',2,'RODRIGO','MASCULINO');/*procedimento criado para inserção de novos jogadores,inserindo novo jogador na tabela jogadores*/
+
+CREATE TABLE TB_LOG( /*tabela criada para informar todas as movimentações na tabela jogadores*/
+    DATA_LOG TIMESTAMP DEFAULT SYSDATE, /*criando variavel com data corrente usando data do sistema operacional*/
+    USER_LOG VARCHAR2(30),
+    DESC_LOG VARCHAR2(300)
+);
+
+    CREATE OR REPLACE TRIGGER TG_JOGADOR
+    AFTER INSERT OR DELETE OR UPDATE ON JOGADORES /*se acontcer inserção,remoção,atualização na tabela jogador */
+    FOR EACH ROW 
+    ENABLE
+    
+    DECLARE
+        V_USER VARCHAR2(30);
+    BEGIN
+    SELECT USER INTO V_USER FROM DUAL; /*pegar usuario que esta logado*/
+    
+    IF INSERTING THEN /*verificandO inserção que ocorreu com esse usuario logado*/
+        INSERT INTO TB_LOG(USER_LOG,DESC_LOG) VALUES (V_USER,'REGISTRO INSERIDO'); /*pegar inserções do usuario e salvar na tabela TB_LOG,e apresentar mensagem REGISTRO INSERIDO*/
+    ELSIF DELETING THEN /*caso ocorra remoção*/
+        INSERT INTO TB_LOG(USER_LOG,DESC_LOG) VALUES (V_USER,'REGISTRO DELETADO'); /*pegar remoções do usario e salvar na tabela TB_LOG,e apresentar mensagem REGISTRO DELETADO*/
+    ELSIF UPDATING THEN /*caso ocorra UPDATE*/
+        INSERT INTO TB_LOG(USER_LOG,DESC_LOG) VALUES (V_USER,'REGISTRO ATUALIZADO'); /*pegar atualizações do usario e salvar na tabela TB_LOG,e apresentar mensagem REGISTRO ATUALIZADO*/
+    END IF;   
+    END;
+
+
+CREATE OR REPLACE FUNCTION PRIMEIRO_NOME_FUNC /*criando uma função*/
+RETURN VARCHAR2
+IS
+    V_EMP_NOME VARCHAR2(100);
+    
+BEGIN
+    SELECT FIRST_NAME INTO V_EMP_NOME FROM HR.EMPLOYEES
+    WHERE EMPLOYEE_ID = 105;
+    
+    RETURN V_EMP_NOME;
+
+END;
+
+SELECT PRIMEIRO_NOME_FUNC FROM DUAL; /*chamando função*/
